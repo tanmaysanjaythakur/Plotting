@@ -20,6 +20,9 @@ dd=d
 a = dd*0.5773
 b = a*2.0*1.23   #1.23 is correction and to elongate hexagon to fill spaces
 		 # ideal regular hexagon should have b=2a
+		 # one can modify this multiplication factor according to their needs
+		 # to fill or empty the space between the hexagons
+		 
 set object object_number polygon from \
      x-d, y-a to \
      x+0, y-b to \
