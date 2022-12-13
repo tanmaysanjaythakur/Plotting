@@ -1,8 +1,14 @@
+#Inspired by: http://www.gnuplotting.org/object-placement-using-a-data-file/
+#this script allows to plot a hexagonal object at every point and can also have defined color according to the data
+#my example data was fort.4444, one can change the column numbers during last plot and ranges and colors to suit their needs
+#the awk commands are to get the minimum or maximum out of the third column.
+
+
 reset
 unset key
 
 set term pdfcairo size 14.7,3
-set output 'E31hexmap.pdf'
+set output 'hexmap.pdf'
 
 ####Read data
 #setting range is necessary for dummy plot
@@ -13,14 +19,14 @@ set size ratio -1
 
 
 #half the distance between centers of 2 hexagons
-d=0.0499
+d=0.05 #example
 
-filename="fort.4444"
+filename="fort.4444" 
 #backquotes do not block macro but double quotes do, hence manually writing filename
 mini="`awk '{if($6<min){min=$6;line=$6}}END{print min}' fort.4444 `"
 ratmin="`awk '{if($6<min){min=$6;rat=$4;dif=$3}}END{print rat}' fort.4444 `"
 difmin="`awk '{if($6<min){min=$6;rat=$4;dif=$3}}END{print dif}' fort.4444 `"
-tt="{/Symbol D}E (meV) for V0=125meV, size 25x25nm^2"
+tt="{/Symbol D}Your title"
 ttt= sprintf("%s, max {/Symbol D}E=%s (meV) at %s,%s", tt,mini,ratmin[1:4],difmin[1:4])
 
 set title ttt 
@@ -34,6 +40,8 @@ eval(CMD)
 unset table
 
 set clip
+
+#palette should be maually defined for proper visuals.
 
 set palette defined ( \
     -0.242  '#FF8989',\
